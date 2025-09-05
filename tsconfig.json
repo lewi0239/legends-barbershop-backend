@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": false,
+        "outDir": "dist",
+        "baseUrl": "./src",
+        "paths": {
+            "@models/*": [
+                "models/*"
+            ],
+            "@controllers/*": [
+                "controllers/*"
+            ],
+            "@routes/*": [
+                "routes/*"
+            ],
+            "@middlewares/*": [
+                "middlewares/*"
+            ]
+        }
+    },
+    "include": [
+        "src"
+    ]
+}

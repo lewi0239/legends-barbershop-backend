@@ -1,0 +1,26 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "baseUrl": "./src",
+        "paths": {
+            "@models/*": [
+                "models/*"
+            ],
+            "@controllers/*": [
+                "controllers/*"
+            ],
+            "@routes/*": [
+                "routes/*"
+            ],
+            "@middlewares/*": [
+                "middlewares/*"
+            ]
+        }
+    },
+    "include": [
+        "src",
+        "tests"
+    ]
+}
