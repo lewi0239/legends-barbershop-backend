@@ -113,18 +113,38 @@ export const deleteBarber = (
   }
 };
 
-//sort barbers A-z
-export const sortBarber = (
-
-req:Request,
-res: Response,
-next: NextFunction
+export const getAllBarbers = (
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
-    try {
-    const id = parseInt(req.params.id, 10);
-    const barberIndex = barbers.sort((a, b) => a.id - b.id));
-        return res.status(200).json({message: "No barber to sort"})
-    } catch (error) {
-    next(error);
+  try {
+    const { sortBy = "id", order = "asc" } = req.query;
+
+    const validSortFields = ["id", "firstName", "lastName"];
+    if (!validSortFields.includes(sortBy as string)) {
+      return res.status(400).json({ message: "Invalid sort field" });
     }
-}
+
+    const sortedBarbers = [...barbers].sort((a, b) => {
+      const fieldA = a[sortBy as keyof Barber];
+      const fieldB = b[sortBy as keyof Barber];
+
+      if (typeof fieldA === "string" && typeof fieldB === "string") {
+        return order === "desc"
+          ? fieldB.localeCompare(fieldA)
+          : fieldA.localeCompare(fieldB);
+      }
+
+      if (typeof fieldA === "number" && typeof fieldB === "number") {
+        return order === "desc" ? fieldB - fieldA : fieldA - fieldB;
+      }
+
+      return 0;
+    });
+
+    return res.status(200).json(sortedBarbers);
+  } catch (error) {
+    next(error);
+  }
+};
