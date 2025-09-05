@@ -23,6 +23,7 @@ export const createBarber = (
       phoneNumber,
       email,
     };
+    console.log(`The Following Barber has been created 💈:`, newBarber);
     barbers.push(newBarber);
     res.status(201).json(newBarber);
   } catch (error) {
@@ -59,7 +60,7 @@ export const getAllBarbers = (
 
       return 0;
     });
-
+    console.log(barbers);
     return res.status(200).json(sortedBarbers);
   } catch (error) {
     next(error);
@@ -104,7 +105,10 @@ export const updateBarber = (
       phoneNumber,
       email,
     };
-
+    console.log(
+      `Barber with id ${id} has been updated to:`,
+      barbers[barberIndex]
+    );
     return res.json(barbers[barberIndex]);
   } catch (error) {
     next(error);
@@ -130,6 +134,7 @@ export const deleteBarber = (
     }
 
     const deletedBarber = barbers.splice(barberIndex, 1)[0];
+    console.log(`The following barber has been deleted `, deletedBarber);
     return res.status(200).json(deletedBarber);
   } catch (error) {
     next(error);
