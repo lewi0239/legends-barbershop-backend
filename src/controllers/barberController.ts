@@ -43,6 +43,8 @@ export const createBarber = (
   }
 };
 
+//Read (get all of the barbers)
+
 export const getAllBarbers = (
   req: Request,
   res: Response,
@@ -79,7 +81,7 @@ export const getAllBarbers = (
   }
 };
 
-//Update a barber
+// Update a barber
 export const updateBarber = (
   req: Request,
   res: Response,
@@ -89,6 +91,7 @@ export const updateBarber = (
     const id = parseInt(req.params.id, 10);
     const { firstName, lastName, phoneNumber, email } = req.body;
 
+    // Validate input
     if (
       !firstName ||
       !lastName ||
@@ -105,23 +108,42 @@ export const updateBarber = (
       });
     }
 
-    const barberIndex = barbers.findIndex((i: Barber) => i.id === id);
-    if (barberIndex === -1) {
-      return res.status(400).json({ message: "Barber not found" });
+    // Check if another barber already has these values
+    const checkExistingFields = barbers.find(
+      (b) =>
+        b.id !== id &&
+        (b.firstName === firstName ||
+          b.lastName === lastName ||
+          b.phoneNumber === phoneNumber ||
+          b.email === email)
+    );
+
+    if (checkExistingFields) {
+      return res.status(400).json({
+        message: "Please update with unique values not used by another barber.",
+      });
     }
 
-    barbers[barberIndex] = {
+    // Find the barber to update
+    const barberIndex = barbers.findIndex((i: Barber) => i.id === id);
+    if (barberIndex === -1) {
+      return res.status(404).json({ message: "Barber not found" });
+    }
+
+    // Update barber
+    const updatedBarber: Barber = {
       ...barbers[barberIndex],
       firstName,
       lastName,
       phoneNumber,
       email,
     };
-    console.log(
-      `Barber with id ${id} has been updated to:`,
-      barbers[barberIndex]
-    );
-    return res.json(barbers[barberIndex]);
+
+    barbers[barberIndex] = updatedBarber;
+
+    console.log(`💈 Barber with ID ${id} has been updated:`, updatedBarber);
+
+    return res.json(updatedBarber);
   } catch (error) {
     next(error);
   }
