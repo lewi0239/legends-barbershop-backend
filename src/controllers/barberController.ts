@@ -16,6 +16,18 @@ export const createBarber = (
       res.status(400).json({ message: "Missing required barber field" });
       return;
     }
+
+    const exisitingBarber = barbers.find(
+      (barber) =>
+        barber.firstName === firstName ||
+        barber.lastName === lastName ||
+        barber.email === email ||
+        barber.phoneNumber === phoneNumber
+    );
+    if (exisitingBarber) {
+      return res.status(400).json({ message: `Barber already exists!` });
+    }
+
     const newBarber: Barber = {
       id: getNextId(),
       firstName,
