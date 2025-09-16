@@ -1,11 +1,23 @@
 import express from "express";
-import itemRoutes from "./routes/itemRoutes.js"; // your real routes
+import dotenv from "dotenv";
+dotenv.config();
+
+import { connectDB } from "./services/database.js"; // ✅ Import and use
+
+import itemRoutes from "./routes/itemRoutes.js";
+import barberRoutes from "./routes/barberRoutes.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json()); // for POST and PUT support
+app.use(express.json());
+
+// Connect to DB before routes
+await connectDB(); // ❗️ CRUCIAL: must happen before using any models
+
+// Define routes
 app.use("/items", itemRoutes);
+app.use("/barbers", barberRoutes);
 
 app.get("/", (req, res) => {
   res.send("Legends Barber Shop API is running.");
