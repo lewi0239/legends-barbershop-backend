@@ -2,7 +2,7 @@ export interface Appointment {
   id: number;
   startTime: Date;
   dayOfApp: Date;
-}
+
 
 export let barbers: Appointment[] = [];
 

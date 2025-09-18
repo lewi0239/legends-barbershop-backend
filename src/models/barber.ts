@@ -1,6 +1,5 @@
 import { Schema, model, type Document } from "mongoose";
 
-// 1. TypeScript interface
 export interface Barber extends Document {
   firstName: string;
   lastName: string;
@@ -8,7 +7,6 @@ export interface Barber extends Document {
   email: string;
 }
 
-// 2. Mongoose schema
 const BarberSchema = new Schema<Barber>(
   {
     firstName: { type: String, required: true },
