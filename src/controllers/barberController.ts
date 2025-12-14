@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import BarberModel from "@models/barber"; // assuming models/barber.ts exports Mongoose model
-
+import BarberModel from "../models/barber.js";
 // ─────────────────────────────────────────────
 // Create a Barber
 export const createBarber = async (
