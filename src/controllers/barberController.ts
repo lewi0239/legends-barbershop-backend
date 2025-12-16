@@ -49,7 +49,7 @@ export const getAllBarbers = async (
   try {
     const { sortBy = "firstName", order = "asc" } = req.query;
 
-    const sortOptions = {
+    const sortOptions: any = {
       [sortBy as string]: order === "desc" ? -1 : 1,
     };
 
