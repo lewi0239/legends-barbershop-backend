@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { connectDB } from "./services/database.js";
+import { initializeFirebase } from "./services/firebase.js";
 
 import barberRoutes from "./routes/barberRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +14,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 await connectDB();
+initializeFirebase();
 
+app.use("/auth", authRoutes);
 app.use("/barbers", barberRoutes);
 
 app.get("/", (req, res) => {

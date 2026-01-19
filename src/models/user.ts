@@ -2,25 +2,41 @@ import { Schema, model, type InferSchemaType } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    username: {
+    firebaseUid: {
       type: String,
-      minLength: 3,
-      maxLength: 64,
+      required: true,
       unique: true,
-      sparse: true,
+      index: true,
     },
-    password: {
+    email: {
       type: String,
-      minLength: 6,
-    },
-    googleId: {
-      type: String,
+      required: true,
       unique: true,
-      sparse: true,
+      lowercase: true,
+      trim: true,
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    provider: {
+      type: String,
+      enum: ["google", "email", "phone"],
+      default: "google",
+    },
+    role: {
+      type: String,
+      enum: ["client", "barber", "admin"],
+      default: "client",
     },
     firstName: { type: String },
     lastName: { type: String },
+    displayName: { type: String },
     profilePic: { type: String },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
