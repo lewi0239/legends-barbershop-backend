@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
+    "setup": "npm i && npm run build",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'tsx --no-warnings' src/server.ts",
     "build": "tsc",
     "test": "jest",

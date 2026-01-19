@@ -1,8 +1,4 @@
-declare global {
-  interface Array<T> {
-    myMap<U>(callback: (currentValue: T, index: number, array: T[]) => U): U[];
-  }
-}
+import "../../types/arrayMapInterface";
 
 Array.prototype.myMap = function <T, U>(
   this: T[],
