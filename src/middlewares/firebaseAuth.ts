@@ -29,7 +29,7 @@ export async function firebaseAuthMiddleware(
 
   const idToken = authHeader.split("Bearer ")[1];
 
-  if (!idToken) {
+  if (idToken) {
     res.status(401).json({ error: "No token provided" });
     return;
   }

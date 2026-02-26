@@ -11,7 +11,6 @@ const BarberSchema = new Schema<Barber>(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    phoneNumber: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
   },
   {
@@ -19,7 +18,6 @@ const BarberSchema = new Schema<Barber>(
   }
 );
 
-// 3. Mongoose model
 const BarberModel = model<Barber>("Barber", BarberSchema);
 
 export default BarberModel;
