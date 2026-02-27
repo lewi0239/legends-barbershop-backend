@@ -3,10 +3,17 @@ import { Barber } from "../models/barber.js";
 import { Client } from "../models/client.js";
 import { Service } from "../models/service.js";
 
+export enum Status {
+  pending = "pending",
+  confirmed = "confirmed",
+  cancelled = "cancelled",
+}
+
 export interface Appointment extends Document {
   client: Client;
   barber: Barber;
   service: Service;
+  status: Status;
 }
 
 const AppointmentSchema = new Schema<Appointment>(
